@@ -25,35 +25,31 @@ public class PlayerController : MonoBehaviour
         RunningInput();
         FlipSprite();
 
-        if (controls.x != 0)
+        if (controls.x != 0 || controls.y != 0)
         {
-            animator.SetBool("IsWalkingSides", true);
+            animator.SetBool("Running_un", true);
         }
-        else if (controls.x == 0)
+        else if (controls.x == 0 || controls.y == 0)
         {
-            animator.SetBool("IsWalkingSides", false);
-        }
-
-        if (controls.y < -0.01f && controls.x == 0)
-        {
-            animator.SetBool("IsWalkingDown", true);
-        }
-        else if (controls.y > 0.01f && controls.x == 0)
-        {
-            animator.SetBool("IsWalkingUp", true);
+            animator.SetBool("Running_un", false);
         }
 
-        if (controls.y == 0)
+        if (Input.GetMouseButtonDown(0) && animator.GetCurrentAnimatorStateInfo(0).IsName("waterElf_idle"))
         {
-            animator.SetBool("IsWalkingDown", false);
-            animator.SetBool("IsWalkingUp", false);
+            animator.SetTrigger("transform");
         }
-    
+
+        if (Input.GetMouseButtonDown(0) && animator.GetCurrentAnimatorStateInfo(0).IsName("idle_armed"))
+        {
+            animator.SetTrigger("punch_1");
+        }
+
     }
 
     private void FixedUpdate()
     {    
         PhysicsMovement();      
+
     }
     
     private void PhysicsMovement()
